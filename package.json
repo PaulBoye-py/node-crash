@@ -1,0 +1,26 @@
+{
+  "name": "crash",
+  "version": "1.0.0",
+  "description": "1. Install node from official website. 2. Confirm node installation by checking version in terminal with the following command:",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PaulBoye-py/node-crash.git"
+  },
+  "author": "Paul Aderoju",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/PaulBoye-py/node-crash/issues"
+  },
+  "homepage": "https://github.com/PaulBoye-py/node-crash#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "lodash": "^4.17.21"
+  }
+}

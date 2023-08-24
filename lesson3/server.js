@@ -1,14 +1,26 @@
 const http = require('http');
 const fs = require('fs');
+const _ = require('lodash');
 
 // Create a Server
 const server = http.createServer((req, res) => {
-    console.log(req.url, req.method);
+   
+    // Lodash random method
+    const num = _.random(0, 23);
+    console.log(num);
+
+    // Lodash once method
+    const greet = _.once(() => {
+        console.log('Hello Lodash');
+    });
+
+    greet();
+    greet();
     // Set Header content type
     res.setHeader('content-type', 'text/html');
 
     // Basic Routing
-    let path = '../views/';
+    let path = './views/';
     switch(req.url) {
         case '/':
             path += 'index.html';
