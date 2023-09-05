@@ -5,13 +5,16 @@
 <body>
     <%- include('./partials/nav.ejs')  %>
 
-    <div class="all-blogs">
+    <div class="all-blogs blogs">
         <h2>All Blogs</h2>
 
         <% if (blogs.length > 0) { %>
             <% blogs.forEach(blog => { %>
-                <h3 class="title"><%= blog.title %></h3>
-                <p class="snippet"><%= blog.snippet %></p>
+                <!-- Dynamic fetching of blog id and assigning it as a parameter to the url of each blog -->
+                <a class="single" href="/blogs/<%= blog._id %>">               
+                    <h3 class="title"><%= blog.title %></h3>
+                    <p class="snippet"><%= blog.snippet %></p>
+                </a>
             <% }); %>
        <% } else { %>
         <p>No blogs to display.</p>
