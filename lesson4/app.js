@@ -2,9 +2,12 @@ const express = require('express');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 require('dotenv').config();
-const Blog = require('../models/blog');
+
+
+const blogRoutes = require('../routes/blogRoutes')
 const { result } = require('lodash');
 const { render } = require('ejs');
+
 
 
 // express app
@@ -78,65 +81,8 @@ app.get('/about', (req, res) => {
     res.render('about', {title: "About"});
 });
 
-// Blogs Route
-
-// Render the blogs on the homepage
-app.get('/blogs', (req, res) => {
-  // Render from newest to oldest
-    Blog.find().sort( {createdAt: -1} )
-      .then((result) => {
-        res.render('index', { title: 'All Blogs', blogs: result })
-      })
-
-      .catch((err) => {
-        console.log(err)
-      })
-})
-
-// Create a new blog post from the blog form and then re-direct to the homepage once the blog is cretaed.
-app.post('/blogs', (req, res) => {
-    const blog = new Blog(req.body);
-
-    // Asynchronous save to data base 
-    blog.save()
-      .then((result) => {
-        res.redirect('/blogs')
-        // console.log(result)
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-})
-
-// Dynamically assigning each blog a unique url based on id parameter
-app.get('/blogs/:id', (req, res) => {
-  // Extract id from req object
-  const id = req.params.id;
-  Blog.findById(id)
-    .then((result) => {
-      res.render('details', { blog: result, title: 'Blog Details' })
-    })
-    .catch((err) => {
-      console.log(err)
-    })
-})
-
-// Delete Blog
-app.delete('/blogs/:id', (req, res) => {
-  const id = req.params.id;
-  Blog.findByIdAndDelete(id)
-    .then((result) => {
-      res.json({ redirect: '/blogs'})
-    })
-    .catch((err) => {
-      console.log(err)
-    })
-  })
-
-app.get('/blogs/create', (req, res) => {
-    res.render('create', {title: 'Create a new blog'});
-})
-
+// Blog routes
+app.use('/blogs', blogRoutes);
 
 
 // Redirects
